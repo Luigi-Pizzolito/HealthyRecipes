@@ -28,3 +28,7 @@ HealthyRecipes
 ├── README.md
 └── app.py
 ```
+
+## Dependencies
+- QT/PySide6
+- Bottle

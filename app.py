@@ -1,6 +1,6 @@
 # General
 import os
-from time import sleep
+import sys
 # Multi-Threading
 from PySide6.QtCore import QThreadPool
 # UI Window
@@ -32,7 +32,11 @@ if __name__ == '__main__':
     ## Start WebSocket server
     threadpool.start(SocketServerWorker())
 
-    # Start GUI Window
-    sleep(2)
+    # Start GUI Window and main app thread
     print("Starting main app window.")
     app.exec()
+
+    # Teardown code
+    print("TEARING DOWN!")
+    app.quit()
+    sys.exit(app.exec())

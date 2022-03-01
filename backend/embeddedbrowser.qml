@@ -9,6 +9,6 @@ Window {
     title: "HealthyRecipes"
     WebEngineView {
         anchors.fill: parent
-        url: "http://localhost:8156"
+        url: "http://0.0.0.0:8156/index.html"
     }
 }
