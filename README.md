@@ -35,5 +35,6 @@ HealthyRecipes
 - QT/PySide6
 - Bottle
 - websocket-server
+- tinydb
 
 ## Application Class Overview
