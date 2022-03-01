@@ -28,7 +28,13 @@ class dbHandler:
     def queryIngredientsByName(self, name, max_results=1000000, include_alias=True):
         test_contains = lambda value, search: search in value
         field = Query()
-        return self.ingredients.search(field.name.test(test_contains, name))[:max_results]
+        exact = self.ingredients.get(field.name == name)  # exact match first
+        if exact != None:
+            ing = [exact]
+            max_results-=1
+        else:
+            ing = []
+        return ing+self.ingredients.search(field.name.test(test_contains, name))[:max_results] # substring matches after
 
     def queryIngredientsByInfo(self, info, max_results, include_alias=True):
         pass

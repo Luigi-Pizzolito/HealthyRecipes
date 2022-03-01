@@ -8,7 +8,7 @@ from googletrans import Translator  # query translate
 import functools
 
 #### GLOBAL VAR DB LANGUAGE ####
-englishDB = False
+englishDB = True
 
 class fetchUtil:
     @functools.lru_cache(maxsize=128) #function cache to massively speed up repeated translations
@@ -181,6 +181,7 @@ class fetchFoodComposition:
 
 
 import timeit
+# 香蕉
 # print(timeit.timeit('fetchFoodComposition.fetchBySearch("奶茶")', globals=globals(), number=1))
 # print(timeit.timeit('fetchFoodComposition.fetchBySearch("奶茶")', globals=globals(), number=1))
-print(fetchFoodComposition.addFetchtoDB("奶茶"))
+print(fetchFoodComposition.addFetchtoDB("banana"))
