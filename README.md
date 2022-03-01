@@ -9,8 +9,13 @@ A food composition DB aggregator and requirement-based recipes generator for a P
 ## Directory Structure
 ```
 HealthyRecipes
-├── app
-│   └── *Application Function Libraries and Code*
+├── backend
+│   ├── embeddedbrowser.qml
+│   ├── sockserver.py
+│   ├── webserver.py
+│   └── app
+│       ├── requesthandler.py
+|       └── *Application Function Libraries and Code*
 ├── db
 │   ├── foodcomposition.csv
 │   └── recipes.csv
@@ -20,10 +25,6 @@ HealthyRecipes
 │   │   └── bootstrap.min.css
 │   ├── index.html
 │   └── sockbridge.js
-├── backend
-│   ├── embeddedbrowser.qml
-│   ├── sockserver.py
-│   └── webserver.py
 ├── LICENSE
 ├── README.md
 └── app.py
@@ -32,3 +33,4 @@ HealthyRecipes
 ## Dependencies
 - QT/PySide6
 - Bottle
+- websocket-server

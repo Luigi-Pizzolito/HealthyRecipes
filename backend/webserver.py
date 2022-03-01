@@ -26,7 +26,6 @@ def startWebServer():
             return "404"
     # start Bottle server at http://0.0.0.0:8156
     run(app, host="0.0.0.0", port="8156")
-    print("WebServer started!")
 
 def resolve_path(path):
     if (sys.platform == 'win32'):
