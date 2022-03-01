@@ -35,3 +35,5 @@ HealthyRecipes
 - QT/PySide6
 - Bottle
 - websocket-server
+
+## Application Class Overview
