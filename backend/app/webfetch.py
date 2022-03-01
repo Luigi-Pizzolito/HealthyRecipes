@@ -10,7 +10,7 @@ from googletrans import Translator  # query translate
 import functools
 
 #### GLOBAL VAR DB LANGUAGE ####
-englishDB = True
+englishDB = False
 
 class fetchUtil:
     @functools.lru_cache(maxsize=128) #function cache to massively speed up repeated translations
@@ -44,9 +44,9 @@ class fetchUtil:
             return default
 
 class fetchFoodComposition:
-
-    def fetchBySearch(query, pages):
-        #! note, pages is actually x10
+    @functools.lru_cache(maxsize=8) # function cache to massively speed up repeated searches
+    def fetchBySearch(query, pages=10):
+        # note, pages is actually x10 items per page
         def fetchLinks(query, pages):
             def fetchOnePage(query, page):
                 # Find web page
@@ -65,9 +65,11 @@ class fetchFoodComposition:
             if englishDB:
                 query = fetchUtil.translateQuery(query, 'zh-CN')
             links = []
+            # fetch and extract links
             for i in range(1, pages+1):
-                # fetch and extract links
+                print("fetch: fetching links "+str(i)+"/"+str(pages))
                 links += fetchOnePage(query, i)
+                    
             return links
 
         def fetchItem(url):
@@ -91,10 +93,10 @@ class fetchFoodComposition:
                         units[ent[0].string] = round(float(ent[1].string.replace("大卡",""))/nut_info["热量"], 2)*100 # take the amount of kcal in portion and divide by amount of kcal in 100g then *100 to get the portion g
                 units['标准(100克)'] = 100.0
 
-                images = {
+                images = fetchUtil.try_or(lambda: {
                     'thumb': soup.find('div', class_='food-pic').find('img')['src'],
                     'hd': soup.find('div', class_='food-pic').find('a')['href']
-                    }
+                    }, {'thumbnail': '', 'hd': ''})
 
                 ###### translate info #######
                 if englishDB:
@@ -145,21 +147,18 @@ class fetchFoodComposition:
             return items
 
         # fetch pages
-        links = fetchLinks(query, pages)
+        links = sorted(set(fetchLinks(query, pages))) # remove duplicates, as the page number above limit just returns last page.
         items = []
         for link in links:
             print("fetch: ["+str(links.index(link)+1)+"/"+str(len(links))+"] fetching "+link)
-            items+=fetchItem(link)
-        print(items)
+            items+=fetchItem(link) # add items
+        
         return items
-
-        
-        
 
         # Add to database
 import timeit
-print(timeit.timeit('fetchFoodComposition.fetchBySearch("banana", 1)', globals=globals(), number=1))
-# fetchFoodComposition.fetchItem("https://www.boohee.com/shiwu/xiangjiao")
+print(timeit.timeit('fetchFoodComposition.fetchBySearch("香蕉")', globals=globals(), number=1))
+print(timeit.timeit('fetchFoodComposition.fetchBySearch("香蕉")', globals=globals(), number=1))
 
 class fetchRecipes:
 
