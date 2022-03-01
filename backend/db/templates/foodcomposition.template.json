@@ -1,0 +1,28 @@
+[
+    {
+        "name": "",
+        "type": "entry",
+        "url": "",
+        "category": "",
+        "nutrition": {
+            "calories": 137,
+            "carbohydrates": 137,
+            "fat": 137,
+            "protein": 137,
+            "fiber": 137
+        },
+        "units": {
+            "standard": 100,
+            "portion": 137
+        },
+        "image": {
+            "thumb": "",
+            "hd": ""
+        }
+    },
+    {
+        "name": "",
+        "type": "alias",
+        "pointer": "orig_name"
+    }
+]
