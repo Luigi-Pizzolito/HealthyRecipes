@@ -13,12 +13,12 @@ HealthyRecipes
 │   ├── embeddedbrowser.qml
 │   ├── sockserver.py
 │   ├── webserver.py
-│   └── app
-│       ├── requesthandler.py
-|       └── *Application Function Libraries and Code*
-├── db
-│   ├── foodcomposition.csv
-│   └── recipes.csv
+│   ├── app
+│   │   ├── requesthandler.py
+│   │   └── *Application Function Libraries and Code*
+│   └── db
+│       ├── foodcomposition.csv
+│       └── recipes.csv
 ├── web
 │   ├── bootstrap
 │   │   ├── bootstrap.bundle.min.js

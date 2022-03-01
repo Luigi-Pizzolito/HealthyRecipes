@@ -27,10 +27,10 @@ if __name__ == '__main__':
     # Start server threads
     threadpool = QThreadPool()
     print("Multithreading with maximum %d threads" % threadpool.maxThreadCount())
-    ## Start web server
-    threadpool.start(WebServerWorker())
     ## Start WebSocket server
     threadpool.start(SocketServerWorker())
+    ## Start web server
+    threadpool.start(WebServerWorker())
 
     # Start GUI Window and main app thread
     print("Starting main app window.")

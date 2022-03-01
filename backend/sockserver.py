@@ -17,19 +17,16 @@ def startSocketServer():
     # setup socket server
     server = WebsocketServer(port = 8157, loglevel=20)
 
-
     # Called for every client connecting (after handshake)
     def new_client(client, server):
-        print("New client connected and was given id %d" % client['id'])
+        print("WebSocket Conencted: New client connected and was given id %d" % client['id'])
 
     # Called when a client sends a message
     def message_received(client, server, message):
         handleRequest(message, client, server)
 
-
     server.set_fn_new_client(new_client)
     server.set_fn_message_received(message_received)
 
     # start socket server at http://0.0.0.0:8157
-    print("SocketServer started!")
     server.run_forever()
