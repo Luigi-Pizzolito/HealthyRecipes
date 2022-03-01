@@ -1,6 +1,5 @@
 # JSON Database
 from tinydb import TinyDB
-
 class dbHandler:
     def __init__(self):
         self.ingredientDB = TinyDB("backend/db/foodcomposition.json")
@@ -10,13 +9,13 @@ class dbHandler:
 
 
     # DB actions for ingredients
-    def addIngredients():
+    def addIngredients(ingredients):
         pass
 
-    def removeIngredients():
-        pass
+    # def removeIngredientByURL(url):
+    #     pass
 
-    def queryIngredientsByName():
+    def queryIngredientsByName(name, max_results, include_alias):
         pass
 
     def queryIngredientsByInfo():

@@ -36,5 +36,8 @@ HealthyRecipes
 - Bottle
 - websocket-server
 - tinydb
+- httplib2
+- beautifulsoup4
+- googletrans==3.1.0a0
 
 ## Application Class Overview
