@@ -1,7 +1,5 @@
 # Database
-from ast import For
-from unicodedata import category
-# from backend.dbhandler import dbHandler
+from backend.dbhandler import dbHandler
 # Web fetch and parse
 import httplib2
 from bs4 import BeautifulSoup
@@ -162,12 +160,27 @@ class fetchFoodComposition:
         for link in links:
             print("fetch: ["+str(links.index(link)+1)+"/"+str(len(links))+"] fetching "+link)
             items+=fetchItem(link) # add items
-        
+        print("fetch: finished fetch "+query)
         return items
+        
 
-        # Add to database
+    def addFetchtoDB(query):
+        # database cache the fetch by search call, check if has already been fetched
+        db = dbHandler()
+        if db.getFetchedQuery(query): # if not already in DB, add to db and add to db index
+            try:
+                items = fetchFoodComposition.fetchBySearch(query)
+            except:
+                return False
+            print(items)
+            db.addIngredients(items)
+            db.addFetchedQuery(query)
+        
+        return True
+        
 
 
 import timeit
-print(timeit.timeit('fetchFoodComposition.fetchBySearch("奶茶")', globals=globals(), number=1))
-print(timeit.timeit('fetchFoodComposition.fetchBySearch("奶茶")', globals=globals(), number=1))
+# print(timeit.timeit('fetchFoodComposition.fetchBySearch("奶茶")', globals=globals(), number=1))
+# print(timeit.timeit('fetchFoodComposition.fetchBySearch("奶茶")', globals=globals(), number=1))
+print(fetchFoodComposition.addFetchtoDB("奶茶"))
