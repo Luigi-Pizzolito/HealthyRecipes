@@ -16,15 +16,13 @@ class SocketServerWorker(QRunnable):
 def startSocketServer():
     # setup socket server
     server = WebsocketServer(port = 8157, loglevel=20)
-    # setup app request handler
-    appHandler = ReqHandler()
 
     # Called for every client connecting (after handshake)
     def new_client(client, server):
         print("WebSocket: New client connected")
     # Called when a client sends a message
     def message_received(client, server, message):
-        appHandler.handleRequest(message, client, server)
+        ReqHandler.handleRequest(message, client, server)
 
     server.set_fn_new_client(new_client)
     server.set_fn_message_received(message_received)
