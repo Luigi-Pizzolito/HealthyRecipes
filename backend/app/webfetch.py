@@ -21,7 +21,6 @@ class fetchUtil:
         query = trans.text
         print("fetch: translated "+query)
         return query
-
     def translateQueries(query, to):
         print("fetch: translating "+str(query))
         translator = translator = Translator()
@@ -31,12 +30,15 @@ class fetchUtil:
             queryt.append(t.text)
         print("fetch: translated "+str(queryt))
         return queryt
+
+    @functools.lru_cache(maxsize=32)
     def fetchURL(url):
         # print("fetch: fetching "+url)
         h = httplib2.Http()
         resp, content = h.request(url)
         assert resp.status == 200
         return content
+
     def try_or(fn, default):
         try:
             return fn()
@@ -45,7 +47,7 @@ class fetchUtil:
 
 class fetchFoodComposition:
     @functools.lru_cache(maxsize=8) # function cache to massively speed up repeated searches
-    def fetchBySearch(query, pages=10):
+    def fetchBySearch(query, pages=20):
         # note, pages is actually x10 items per page
         def fetchLinks(query, pages):
             def fetchOnePage(query, page):
@@ -66,9 +68,17 @@ class fetchFoodComposition:
                 query = fetchUtil.translateQuery(query, 'zh-CN')
             links = []
             # fetch and extract links
+            ppage = []
             for i in range(1, pages+1):
-                print("fetch: fetching links "+str(i)+"/"+str(pages))
-                links += fetchOnePage(query, i)
+                print("fetch: fetching links "+str(i))
+                page = fetchOnePage(query, i)
+                # check for duplicate link / last page
+                if i>1 and page == ppage:
+                    print('fetch: fetching links END')
+                    break
+                else:
+                    links += page
+                ppage = page
                     
             return links
 
@@ -156,21 +166,8 @@ class fetchFoodComposition:
         return items
 
         # Add to database
+
+
 import timeit
-print(timeit.timeit('fetchFoodComposition.fetchBySearch("香蕉")', globals=globals(), number=1))
-print(timeit.timeit('fetchFoodComposition.fetchBySearch("香蕉")', globals=globals(), number=1))
-
-class fetchRecipes:
-
-    def fetch():
-        # Find web pages
-
-        # Download HTML
-
-        # Parse HTML
-
-        # Extract & format information
-
-        # Add to database
-
-        pass
+print(timeit.timeit('fetchFoodComposition.fetchBySearch("奶茶")', globals=globals(), number=1))
+print(timeit.timeit('fetchFoodComposition.fetchBySearch("奶茶")', globals=globals(), number=1))
