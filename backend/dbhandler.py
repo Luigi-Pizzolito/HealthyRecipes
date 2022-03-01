@@ -1,5 +1,7 @@
 # JSON Database
 from tinydb import TinyDB, Query
+
+#todo: util class to resolve alias entries and remove duplicates
 class dbHandler:
     def __init__(self):
         self.ingredientDB = TinyDB("backend/db/foodcomposition.json")
