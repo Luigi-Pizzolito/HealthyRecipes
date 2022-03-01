@@ -4,7 +4,7 @@ from PySide6.QtCore import QRunnable, Slot
 from websocket_server import WebsocketServer
 
 # User request handler code
-from backend.app.requesthandler import ReqHandler
+from backend.requesthandler import ReqHandler
 
 # Class to start this file as thread
 class SocketServerWorker(QRunnable):
