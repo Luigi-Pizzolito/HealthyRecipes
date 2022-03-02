@@ -177,6 +177,14 @@ class fetchFoodComposition:
             db.addFetchedQuery(query)
         
         return True
+
+    #todo: function to return just item names from query and compare with db index search for cacheing
+    def DBcacheItemNamesFromSearch(query):
+
+        def fetchItemsBySearch(query):
+            pass
+
+        pass
         
 
 
